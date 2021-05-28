@@ -14,7 +14,24 @@ export const App = () => {
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
   const onClickAdd = () => {
-    alert(todoText);
+    if (todoText === "") return;
+    //incompleteTodsの配列＋todoTextを配列としてnewTodosにセットする。
+    const newTodos = [...incompleteTodos, todoText];
+    setIncompleteTodos(newTodos);
+    setTodoText("");
+    // alert(todoText);
+  };
+  const onClickDelete = (index) => {
+    const newTodos = [...incompleteTodos];
+    //spliceについては下記を参照
+    //https://techacademy.jp/magazine/37922
+    //指定したindexを削除
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
+    // alert("削除"+index);
+  };
+  const onClickComplete = (index) => {
+    alert(index);
   };
 
   return (
@@ -30,12 +47,12 @@ export const App = () => {
       <div className="incomplete-area">
         <p className-="title">未完了のTODO</p>
         <ul>
-          {incompleteTodos.map((todo) => {
+          {incompleteTodos.map((todo, index) => {
             return (
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>完了</button>
-                <button>削除</button>
+                <button onClick={() => onClickComplete(index)}>完了</button>
+                <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             );
           })}
