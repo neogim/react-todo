@@ -31,7 +31,13 @@ export const App = () => {
     // alert("削除"+index);
   };
   const onClickComplete = (index) => {
-    alert(index);
+    const newIncompleteTodos = [...incompleteTodos];
+    //指定したindexを削除
+    newIncompleteTodos.splice(index, 1);
+
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
   };
 
   return (
